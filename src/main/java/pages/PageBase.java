@@ -3,9 +3,9 @@ package pages;
 import org.openqa.selenium.By;
 import utilities.AutomationTool;
 
-public class PageBase {
-    protected static String siteUrl = System.getProperty("SiteUrl");
+public abstract class PageBase {
     protected AutomationTool webTool;
+    protected static String siteUrl = AutomationTool.properties.getProperty("siteUrl");
 
     public PageBase(AutomationTool webTool){
         this.webTool = webTool;
@@ -19,5 +19,7 @@ public class PageBase {
         webTool.closeBrowser();
         return true;
     }
+
+//    public abstract String getPageTitle();
 
 }

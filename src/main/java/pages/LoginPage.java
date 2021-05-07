@@ -8,7 +8,6 @@ public class LoginPage extends PageBase {
     }
 
     public DashboardPage login(String userName, String password){
-
         Navbar navbarDiv = new Navbar(webTool);
         navbarDiv.login(userName, password, null);
         webTool.waitUrlLoad(DashboardPage.getUrl());

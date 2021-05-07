@@ -1,5 +1,3 @@
-package sides;
-
 import pages.AccessAccountPage;
 import pages.DashboardPage;
 import pages.HomePage;
@@ -17,10 +15,10 @@ public class Hackerrank {
     private LoginPage loginPage;
 
     public Hackerrank(AutomationTool webTool){
-        this.usernName = System.getProperty("MockUserEmail");
-        this.userPswd = System.getProperty("MockUserPswd");
         this.webTool = webTool;
-        webTool.goToPage(System.getProperty("SiteUrl"));
+        this.usernName = AutomationTool.properties.getProperty("userEmail");
+        this.userPswd = AutomationTool.properties.getProperty("userPswd");
+        webTool.goToPage(AutomationTool.properties.getProperty("siteUrl"));
     }
 
     public boolean login(){

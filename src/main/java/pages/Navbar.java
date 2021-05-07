@@ -11,7 +11,14 @@ public class Navbar extends PageBase {
     private By navbarDropdownBtnBy = By.xpath("//div[@class='dropdown-handle nav_link toggle-wrap']");
     private By navbarDropdownLogoutBtnBy = By.xpath("//button[normalize-space()='Logout']");
     private By navbarLoginBtnBy = By.xpath("//button[normalize-space()='Log In']");
-    private By profileBtnBy = By.xpath("//a[normalize-space()='Profile']");
+    private By profileBtnBy = By.xpath("//a[@class='profile-nav-item-link profile-progress']");
+
+
+    private By practicePageBtnBy = By.xpath("//a[@href='/dashboard']");
+    private By cartificationPageBtnBy = By.xpath("//a[@href='/skills-verification']");
+    private By competePageBtnBy = By.xpath("//a[@href='/contests']");
+    private By jobsPageBtnBy = By.xpath("//a[@href='/jobs']");
+    private By leaderboardPageBtnBy = By.xpath("//a[@href='/leaderboard']");
 
     public Navbar(AutomationTool webTool) {
         super(webTool);
@@ -28,13 +35,16 @@ public class Navbar extends PageBase {
         webTool.waitAndReturnElement(navbarLoginBtnBy, true, null);
     }
 
-    public PageBase goToProfilePage(){
+    public ProfilePage goToProfilePage(){
         webTool.waitAndReturnElement(navbarDropdownBtnBy, true, null).click();
         webTool.waitAndReturnElement(profileBtnBy, true, null).click();
-        return null;
+        return new ProfilePage(webTool, this);
     }
 
-    public String getUserNameSapanText(){
+    public String getUserNameSpanText(){
         return  webTool.waitAndReturnElement(navbarDropdownBtnBy, false, null).getText();
     }
+
+
+
 }

@@ -10,7 +10,7 @@ public class DashboardPage extends PageBase {
         this.navbarDiv = navbarDiv;
     }
 
-    public Navbar getNavbarDiv() {
+    public Navbar getNavbar() {
         return navbarDiv;
     }
 
