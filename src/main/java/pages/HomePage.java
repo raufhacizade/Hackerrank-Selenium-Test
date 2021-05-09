@@ -6,7 +6,7 @@ import utilities.AutomationTool;
 public class HomePage extends PageBase {
     private By accessAccountPageBtnBy = By.xpath("//*[@id='menu-item-2887']/a");
 
-    public HomePage(AutomationTool webTool){
+    public HomePage(AutomationTool webTool) {
         super(webTool);
     }
 

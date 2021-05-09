@@ -10,7 +10,7 @@ public class AccessAccountPage extends PageBase {
         super(webTool);
     }
 
-    public LoginPage loginForDevelopers(){
+    public LoginPage loginForDevelopers() {
         webTool.waitAndReturnElement(loginMenuBtnBy, true).click();
         return new LoginPage(webTool);
     }

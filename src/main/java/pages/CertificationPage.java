@@ -2,7 +2,7 @@ package pages;
 
 import utilities.AutomationTool;
 
-public class CertificationPage extends PageBase{
+public class CertificationPage extends PageBase {
 
     public CertificationPage(AutomationTool webTool) {
         super(webTool);

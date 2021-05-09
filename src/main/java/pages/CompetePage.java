@@ -2,7 +2,7 @@ package pages;
 
 import utilities.AutomationTool;
 
-public class CompetePage extends PageBase{
+public class CompetePage extends PageBase {
 
     public CompetePage(AutomationTool webTool) {
         super(webTool);

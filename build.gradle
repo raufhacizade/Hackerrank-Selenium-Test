@@ -9,7 +9,7 @@ repositories {
 }
 
 ext{
-    browser = System.getProperty("browser", "firefox")
+    browser = System.getProperty("browser", "chrome")
 }
 
 dependencies {

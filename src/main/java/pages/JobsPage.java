@@ -2,7 +2,7 @@ package pages;
 
 import utilities.AutomationTool;
 
-public class JobsPage extends PageBase{
+public class JobsPage extends PageBase {
 
     public JobsPage(AutomationTool webTool) {
         super(webTool);

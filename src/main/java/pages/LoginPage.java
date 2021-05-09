@@ -7,7 +7,7 @@ public class LoginPage extends PageBase {
         super(webTool);
     }
 
-    public DashboardPage login(String userEmail, String password){
+    public DashboardPage login(String userEmail, String password) {
         Navbar navbarDiv = new Navbar(webTool);
         navbarDiv.login(userEmail, password, null);
         DashboardPage dashboardPage = new DashboardPage(webTool, navbarDiv);

@@ -9,13 +9,13 @@ import java.util.Map;
 
 public class ChallengePage extends PageBase{
     private String challengePageTitle;
-    private String challengePageUrl;
+    private String challengeName;
     private By downloadSampleTestCasesBtnBy = By.xpath("//span[normalize-space()='Download sample test cases']");
 
-    public ChallengePage(AutomationTool webTool, String challengePageTitle, String challengePageUrl) {
+    public ChallengePage(AutomationTool webTool, String challengePageTitle, String challengeName) {
         super(webTool);
         this.challengePageTitle = challengePageTitle;
-        this.challengePageUrl = challengePageUrl;
+        this.challengeName = challengeName;
     }
 
     @Override
@@ -23,9 +23,13 @@ public class ChallengePage extends PageBase{
         return challengePageTitle;
     }
 
+    public String getChallengeName() {
+        return challengeName;
+    }
+
     @Override
     public String getPageUrl() {
-        return super.getPageUrl() + challengePageUrl;
+        return super.getPageUrl() + "challenges/" + challengeName + "/problem";
     }
 
     public void downloadSampleTestCasesZip(){

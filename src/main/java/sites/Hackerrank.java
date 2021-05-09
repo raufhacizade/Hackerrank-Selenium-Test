@@ -15,6 +15,7 @@ public class Hackerrank {
     public static final String userName = properties.getProperty("userName");
     public static final String userEmail = properties.getProperty("userEmail");
     public static final String userPassword = properties.getProperty("userPassword");
+    public static final String downloadDirectory = System.getProperty("user.dir") + "\\downloads";
 
     private AutomationTool webTool;
 
@@ -37,15 +38,15 @@ public class Hackerrank {
     }
 
     public HomePage getHomePage() {
-        return (homePage != null) ? homePage : new HomePage(webTool);
+        return homePage;
     }
 
     public AccessAccountPage getAccessAccountPage() {
-        return (accessAccountPage != null) ? accessAccountPage : new AccessAccountPage(webTool);
+        return accessAccountPage;
     }
 
     public DashboardPage getDashboardPage() {
-        return (dashboardPage != null) ? dashboardPage : new DashboardPage(webTool, new Navbar(webTool));
+        return dashboardPage;
     }
 
     private static Properties getProperties() {

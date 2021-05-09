@@ -1,11 +1,8 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import utilities.AutomationTool;
-
-import java.util.HashMap;
 
 public class Navbar extends PageBase {
 
@@ -28,74 +25,74 @@ public class Navbar extends PageBase {
         super(webTool);
     }
 
-    public void login(String userEmail, String userPassword, String redirectedUrl){
+    public void login(String userEmail, String userPassword, String redirectedUrl) {
         webTool.waitAndReturnElement(nameInputBoxBy, true).sendKeys(userEmail);
-        webTool.waitAndReturnElement(passwordInputBoxBy, true).sendKeys(userPassword+"\n");
-        if(redirectedUrl != null)
+        webTool.waitAndReturnElement(passwordInputBoxBy, true).sendKeys(userPassword + "\n");
+        if (redirectedUrl != null)
             webTool.waitUrlLoad(redirectedUrl);
     }
 
-    public void logout(){
+    public void logout() {
         webTool.waitAndReturnElement(navbarDropdownBtnBy, true).click();
 //        webTool.waitAndReturnElement(profileMenuDivBy, false);
         webTool.waitAndReturnElement(navbarDropdownLogoutBtnBy, true).click();
         webTool.waitAndReturnElement(navbarLoginBtnBy, true);
     }
 
-    public String getUserNameSpanText(){
-        return  webTool.waitAndReturnElement(navbarDropdownBtnBy, false).getText();
+    public String getUserNameSpanText() {
+        return webTool.waitAndReturnElement(navbarDropdownBtnBy, false).getText();
     }
 
-    public ProfilePage goToProfilePage(){
+    public ProfilePage goToProfilePage() {
         webTool.waitAndReturnElement(navbarDropdownBtnBy, true).click();
         webTool.waitAndReturnElement(profileMenuDivBy, false);
         webTool.waitAndReturnElement(profileBtnBy, true).click();
         return new ProfilePage(webTool, this);
     }
 
-    public DashboardPage goToPracticePage(){
+    public DashboardPage goToPracticePage() {
         webTool.waitAndReturnElement(practicePageBtnBy, true).click();
         DashboardPage page = new DashboardPage(webTool, this);
         webTool.getWait().until(ExpectedConditions.titleContains(page.getPageTitle()));
         return page;
     }
 
-    public CertificationPage goToCertificationPage(){
+    public CertificationPage goToCertificationPage() {
         webTool.waitAndReturnElement(cartificationPageBtnBy, true).click();
         CertificationPage page = new CertificationPage(webTool);
         webTool.getWait().until(ExpectedConditions.titleContains(page.getPageTitle()));
         return page;
     }
 
-    public CompetePage goToCompetePage(){
+    public CompetePage goToCompetePage() {
         webTool.waitAndReturnElement(competePageBtnBy, true).click();
         CompetePage page = new CompetePage(webTool);
         webTool.getWait().until(ExpectedConditions.titleContains(page.getPageTitle()));
         return page;
     }
 
-    public JobsPage goToJobsPage(){
+    public JobsPage goToJobsPage() {
         webTool.waitAndReturnElement(jobsPageBtnBy, true).click();
         JobsPage page = new JobsPage(webTool);
         webTool.getWait().until(ExpectedConditions.titleContains(page.getPageTitle()));
         return page;
     }
 
-    public LeaderboardPage goToLeaderboardPagePage(){
+    public LeaderboardPage goToLeaderboardPagePage() {
         webTool.waitAndReturnElement(leaderboardPageBtnBy, true).click();
         LeaderboardPage page = new LeaderboardPage(webTool);
         webTool.getWait().until(ExpectedConditions.titleContains(page.getPageTitle()));
         return page;
     }
 
-    public PageBase goToPageByName(String pageName){
-        if(pageName == "Certification")
+    public PageBase goToPageByName(String pageName) {
+        if (pageName == "Certification")
             return goToCertificationPage();
-        if(pageName == "Compete")
+        if (pageName == "Compete")
             return goToCompetePage();
-        if(pageName == "Jobs")
+        if (pageName == "Jobs")
             return goToJobsPage();
-        if(pageName == "Leaderboard")
+        if (pageName == "Leaderboard")
             return goToLeaderboardPagePage();
         else
             return goToPracticePage();

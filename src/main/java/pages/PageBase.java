@@ -11,19 +11,19 @@ import java.util.Properties;
 public class PageBase {
     protected AutomationTool webTool;
 
-    public PageBase(AutomationTool webTool){
+    public PageBase(AutomationTool webTool) {
         this.webTool = webTool;
     }
 
-    public String getPageTitle(){
+    public String getPageTitle() {
         return "HackerRank";
     }
 
-    public String getPageUrl(){
+    public String getPageUrl() {
         return Hackerrank.siteUrl;
     }
 
-    private static Properties getProperties(){
+    private static Properties getProperties() {
         String propFileName = "config.properties";
         InputStream inputStream = null;
         Properties prop = new Properties();

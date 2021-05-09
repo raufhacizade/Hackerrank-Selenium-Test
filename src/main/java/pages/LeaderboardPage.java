@@ -2,7 +2,7 @@ package pages;
 
 import utilities.AutomationTool;
 
-public class LeaderboardPage extends PageBase{
+public class LeaderboardPage extends PageBase {
 
     public LeaderboardPage(AutomationTool webTool) {
         super(webTool);

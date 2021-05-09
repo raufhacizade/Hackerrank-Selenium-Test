@@ -1,8 +1,9 @@
 package utilities;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -10,26 +11,26 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.By;
+import sites.Hackerrank;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AutomationTool {
-    private String browserName;
+    private final String browserName;
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public AutomationTool(){
+    public AutomationTool() {
         this.browserName = System.getProperty("BrowserName");
         this.driver = null;
         this.wait = null;
     }
 
-    public void openBrowser(){
-        if(browserName == "firefox"){
+    public void openBrowser() {
+        if (browserName == "firefox") {
             FirefoxProfile firefoxProfile = new FirefoxProfile();
-            firefoxProfile.setPreference("browser.download.dir", System.getProperty("user.dir")+"\\downloads");
+            firefoxProfile.setPreference("browser.download.dir", Hackerrank.downloadDirectory);
 
             FirefoxOptions options = new FirefoxOptions();
             options.setProfile(new FirefoxProfile());
@@ -37,9 +38,9 @@ public class AutomationTool {
             this.driver = new FirefoxDriver(options);
             WebDriverManager.firefoxdriver().setup();
             System.out.println("Firefox driver is running");
-        }else {
+        } else {
             Map<String, Object> prefs = new HashMap<String, Object>();
-            prefs.put("download.default_directory", System.getProperty("user.dir")+"\\downloads");
+            prefs.put("download.default_directory", Hackerrank.downloadDirectory);
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setExperimentalOption("prefs", prefs);
 
@@ -51,44 +52,40 @@ public class AutomationTool {
         this.driver.manage().window().maximize();
     }
 
-    public void goToPage(String url){
+    public void goToPage(String url) {
         this.driver.get(url);
     }
 
-    public void closeBrowser (){
+    public void closeBrowser() {
         this.driver.quit();
     }
 
-    public WebElement waitAndReturnElement(By locator, boolean isClickable ) {
+    public WebElement waitAndReturnElement(By locator, boolean isClickable) {
         this.wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        if(isClickable)
+        if (isClickable)
             this.wait.until(ExpectedConditions.elementToBeClickable(locator));
 
         return this.driver.findElement(locator);
     }
-    
-    public void waitUrlLoad(String url){
+
+    public void waitUrlLoad(String url) {
         this.wait.until(ExpectedConditions.urlContains(url));
     }
 
-    public String getCurrentUrl(){
+    public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
 
-    public WebDriverWait getWait(){
+    public WebDriverWait getWait() {
         return wait;
     }
 
-    public String getPageTitle(){
+    public String getPageTitle() {
         return driver.getTitle();
     }
 
-    public String navigateBack(){
+    public String navigateBack() {
         driver.navigate().back();
         return getCurrentUrl();
-    }
-
-    public WebDriver getDriver() {
-        return driver;
     }
 }
