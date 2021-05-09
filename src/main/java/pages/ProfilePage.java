@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import sites.Hackerrank;
 import utilities.AutomationTool;
 
 public class ProfilePage extends PageBase{
@@ -30,60 +31,59 @@ public class ProfilePage extends PageBase{
         this.navbarDiv = navbarDiv;
     }
 
-    public Navbar getNavbar() {
-        return navbarDiv;
-    }
-
     public String getProfileHeading(){
-        return webTool.waitAndReturnElement(profileHeadingBy, false, null).getText();
+        return webTool.waitAndReturnElement(profileHeadingBy, false).getText();
     }
 
     public String getProfileSubheading(){
-        return webTool.waitAndReturnElement(profileSubheadingBy, false, null).getText();
+        return webTool.waitAndReturnElement(profileSubheadingBy, false).getText();
     }
 
     public void editIntro(String firstName, String lastName, String headline, String website, String linkedinUrl){
-        webTool.waitAndReturnElement(editIntroBtnBy, true, null).click();
+        webTool.waitAndReturnElement(editIntroBtnBy, true).click();
 
         if(firstName != null)
-            webTool.waitAndReturnElement(firstNameInputBy, true, null)
+            webTool.waitAndReturnElement(firstNameInputBy, true)
                     .sendKeys(Keys.chord(Keys.CONTROL, "a"),firstName);
 
         if(lastName != null)
-            webTool.waitAndReturnElement(lastNameInputBy, true, null)
+            webTool.waitAndReturnElement(lastNameInputBy, true)
                     .sendKeys(Keys.chord(Keys.CONTROL, "a"),lastName);
 
         if(headline != null)
-            webTool.waitAndReturnElement(headlineInputBy, true, null)
+            webTool.waitAndReturnElement(headlineInputBy, true)
                     .sendKeys(Keys.chord(Keys.CONTROL, "a"),headline);
 
         if(website != null)
-            webTool.waitAndReturnElement(websiteInputBy, true, null)
+            webTool.waitAndReturnElement(websiteInputBy, true)
                     .sendKeys(Keys.chord(Keys.CONTROL, "a"),website);
         if(linkedinUrl != null)
-            webTool.waitAndReturnElement(linkedinBy, true, null)
+            webTool.waitAndReturnElement(linkedinBy, true)
                     .sendKeys(Keys.chord(Keys.CONTROL, "a"),linkedinUrl);
 
-        webTool.waitAndReturnElement(saveIntroBtnBy, true, null).click();
-        webTool.waitAndReturnElement(profileSubheadingBy, false, null);
+        webTool.waitAndReturnElement(saveIntroBtnBy, true).click();
+        webTool.waitAndReturnElement(profileSubheadingBy, false);
     }
 
     public void editAbout(String aboutMe){
-        System.out.println("Insode of editAbout1");
-        webTool.waitAndReturnElement(aboutMeBtnBy, true, null).click();
+        webTool.waitAndReturnElement(aboutMeBtnBy, true).click();
 
-        System.out.println("Insode of editAbout2");
         if(aboutMe != null)
-            webTool.waitAndReturnElement(aboutMeTextareBy, true, null)
+            webTool.waitAndReturnElement(aboutMeTextareBy, true)
                     .sendKeys(Keys.chord(Keys.CONTROL, "a"),aboutMe);
 
-        webTool.waitAndReturnElement(saveAboutMeBy, true, null).click();
-        webTool.waitAndReturnElement(profileAboutMeBy, false, null);
+        webTool.waitAndReturnElement(saveAboutMeBy, true).click();
+        webTool.waitAndReturnElement(profileAboutMeBy, false);
         webTool.getWait().until(ExpectedConditions.invisibilityOfElementWithText(profileAboutMeBy, aboutMe));
     }
 
-//    @Override
-//    public String getPageTitle() {
-//        return null;
-//    }
+    @Override
+    public String getPageTitle() {
+        return "HackerRank";
+    }
+
+    @Override
+    public String getPageUrl() {
+        return super.getPageUrl() + Hackerrank.userName;
+    }
 }

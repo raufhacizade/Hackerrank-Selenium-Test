@@ -1,25 +1,51 @@
 package pages;
 
-import org.openqa.selenium.By;
+import sites.Hackerrank;
 import utilities.AutomationTool;
 
-public abstract class PageBase {
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+public class PageBase {
     protected AutomationTool webTool;
-    protected static String siteUrl = AutomationTool.properties.getProperty("siteUrl");
 
     public PageBase(AutomationTool webTool){
         this.webTool = webTool;
     }
 
-    public void openPage(String newPageUrl){
-        webTool.goToPage(newPageUrl);
+    public String getPageTitle(){
+        return "HackerRank";
     }
 
-    public boolean closeAll(){
-        webTool.closeBrowser();
-        return true;
+    public String getPageUrl(){
+        return Hackerrank.siteUrl;
     }
 
-//    public abstract String getPageTitle();
+    private static Properties getProperties(){
+        String propFileName = "config.properties";
+        InputStream inputStream = null;
+        Properties prop = new Properties();
+        try {
+            inputStream = AutomationTool.class.getClassLoader().getResourceAsStream(propFileName);
 
+            if (inputStream != null)
+                prop.load(inputStream);
+            else
+                throw new FileNotFoundException("Property file '" + propFileName + "' not found in the classpath");
+
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                System.out.println("Exception: " + e);
+                e.printStackTrace();
+            }
+        }
+
+        return prop;
+    }
 }

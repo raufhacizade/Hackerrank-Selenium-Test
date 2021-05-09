@@ -14,7 +14,13 @@ public class DashboardPage extends PageBase {
         return navbarDiv;
     }
 
-    public static String getUrl(){
-        return siteUrl+"dashboard";
+    @Override
+    public String getPageTitle() {
+        return "Dashboard | HackerRank";
+    }
+
+    @Override
+    public String getPageUrl() {
+        return super.getPageUrl() + "dashboard";
     }
 }

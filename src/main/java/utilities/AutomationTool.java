@@ -4,19 +4,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.By;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AutomationTool {
-    public static Properties properties = getProperties();
     private String browserName;
     private WebDriver driver;
     private WebDriverWait wait;
@@ -29,14 +28,24 @@ public class AutomationTool {
 
     public void openBrowser(){
         if(browserName == "firefox"){
+            FirefoxProfile firefoxProfile = new FirefoxProfile();
+            firefoxProfile.setPreference("browser.download.dir", System.getProperty("user.dir")+"\\downloads");
+
+            FirefoxOptions options = new FirefoxOptions();
+            options.setProfile(new FirefoxProfile());
+
+            this.driver = new FirefoxDriver(options);
             WebDriverManager.firefoxdriver().setup();
-            this.driver = new FirefoxDriver();
-        }else if (browserName == "edge"){
-            WebDriverManager.edgedriver().setup();
-            this.driver = new EdgeDriver();
+            System.out.println("Firefox driver is running");
         }else {
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            prefs.put("download.default_directory", System.getProperty("user.dir")+"\\downloads");
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setExperimentalOption("prefs", prefs);
+
             WebDriverManager.chromedriver().setup();
-            this.driver = new ChromeDriver();
+            this.driver = new ChromeDriver(chromeOptions);
+            System.out.println("Chrome driver is running");
         }
         this.wait = new WebDriverWait(driver, 20);
         this.driver.manage().window().maximize();
@@ -50,12 +59,10 @@ public class AutomationTool {
         this.driver.quit();
     }
 
-    public WebElement waitAndReturnElement(By locator, boolean isClickable, String newUrl ) {
+    public WebElement waitAndReturnElement(By locator, boolean isClickable ) {
         this.wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         if(isClickable)
             this.wait.until(ExpectedConditions.elementToBeClickable(locator));
-        if(newUrl != null && !newUrl.isEmpty() && !newUrl.isBlank())
-            waitUrlLoad(newUrl);
 
         return this.driver.findElement(locator);
     }
@@ -68,12 +75,12 @@ public class AutomationTool {
         return driver.getCurrentUrl();
     }
 
-    public WebDriver getDriver(){
-        return driver;
-    }
-
     public WebDriverWait getWait(){
         return wait;
+    }
+
+    public String getPageTitle(){
+        return driver.getTitle();
     }
 
     public String navigateBack(){
@@ -81,29 +88,7 @@ public class AutomationTool {
         return getCurrentUrl();
     }
 
-    private static Properties getProperties(){
-        String propFileName = "config.properties";
-        InputStream inputStream = null;
-        Properties prop = new Properties();
-        try {
-            inputStream = AutomationTool.class.getClassLoader().getResourceAsStream(propFileName);
-
-            if (inputStream != null)
-                prop.load(inputStream);
-            else
-                throw new FileNotFoundException("Property file '" + propFileName + "' not found in the classpath");
-
-        } catch (Exception e) {
-            System.out.println("Exception: " + e);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                System.out.println("Exception: " + e);
-                e.printStackTrace();
-            }
-        }
-
-        return prop;
+    public WebDriver getDriver() {
+        return driver;
     }
 }

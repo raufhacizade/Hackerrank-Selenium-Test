@@ -1,4 +1,6 @@
 build/
+downloads/*
+!downloads/.gitkeep
 .idea/
 gradle/
 .gradle/
